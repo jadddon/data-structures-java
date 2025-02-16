@@ -1,6 +1,6 @@
 package L7;
 
-/**
+/** 
  * LinkedList class implements a doubly-linked list.
  */
 public class MyLinkedList<AnyType> implements Iterable<AnyType>
