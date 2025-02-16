@@ -75,7 +75,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      * @param x any object.
      * @return true.
      */
-    public boolean add( AnyType x )
+    public boolean add( AnyType x )     // whether or not add was successful
     {
     add( size( ), x );
         return true;            
@@ -86,9 +86,9 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      * @param x any object.
      * @return true.
      */
-    public void add( int idx, AnyType x )
+    public void add( int idx, AnyType x )    // adds item at specific place (idx) and value/object (x)
     {
-        if( theItems.length == size( ) )
+        if( theItems.length == size( ) )       //check capacity (length of array)
             ensureCapacity( size( ) * 2 + 1 );
 
         for( int i = theSize; i > idx; i-- )
