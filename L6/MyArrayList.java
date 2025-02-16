@@ -103,7 +103,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      * @param idx the index of the object.
      * @return the item was removed from the collection.
      */
-    public AnyType remove( int idx )
+    public AnyType remove( int idx )                // memorize this removal
     {
         AnyType removedItem = theItems[ idx ];
         
@@ -132,7 +132,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      * Obtains an Iterator object used to traverse the collection.
      * @return an iterator positioned prior to the first element.
      */
-    public java.util.Iterator<AnyType> iterator( )
+    public java.util.Iterator<AnyType> iterator( )       // iterator is a method that returns an iterator object
     {
         return new ArrayListIterator( );
     }
@@ -156,7 +156,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      * It maintains a notion of a current position and of
      * course the implicit reference to the MyArrayList.
      */
-    private class ArrayListIterator implements java.util.Iterator<AnyType>
+    private class ArrayListIterator implements java.util.Iterator<AnyType>   // non-static nested class -- can access the outer class's fields
     {
         private int current = 0;
         private boolean okToRemove = false;
