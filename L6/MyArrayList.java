@@ -1,5 +1,8 @@
 package L6;
 
+// Importing necessary classes and interfaces
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MyArrayList<AnyType> implements Iterable<AnyType>
 {
@@ -8,7 +11,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public MyArrayList( )
     {
-        doClear( );       //different than clear() method 
+        doClear( );       // Calls the doClear method to initialize the list
     }
     
     /**
@@ -17,7 +20,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public int size( )
     {
-        return theSize;   // number 
+        return theSize;   // Returns the current size of the list
     }
     
     /**
@@ -26,7 +29,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */ 
     public boolean isEmpty( )
     {
-        return size( ) == 0;
+        return size( ) == 0; // Checks if the size of the list is 0 to determine if it's empty
     }
     
     /**
@@ -36,9 +39,9 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public AnyType get( int idx )
     {
-        if( idx < 0 || idx >= size( ) )
+        if( idx < 0 || idx >= size( ) ) // Checks if the index is within the bounds of the list
             throw new ArrayIndexOutOfBoundsException( "Index " + idx + "; size " + size( ) );
-        return theItems[ idx ];    
+        return theItems[ idx ];    // Returns the item at the specified index
     }
         
     /**
@@ -50,23 +53,22 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public AnyType set( int idx, AnyType newVal )
     {
-        if( idx < 0 || idx >= size( ) )
+        if( idx < 0 || idx >= size( ) ) // Checks if the index is within the bounds of the list
             throw new ArrayIndexOutOfBoundsException( "Index " + idx + "; size " + size( ) );
-        AnyType old = theItems[ idx ];    
-        theItems[ idx ] = newVal;
-        
-        return old;    
+        AnyType old = theItems[ idx ];    // Stores the old value at the specified index
+        theItems[ idx ] = newVal; // Sets the new value at the specified index
+        return old;    // Returns the old value
     }
 
     @SuppressWarnings("unchecked")      //@SuppressWarnings sign can go in front of a method declaration
     public void ensureCapacity( int newCapacity )
     {
-        if( newCapacity < theSize )
-            return;
+        if( newCapacity < theSize ) // Checks if the new capacity is less than the current size
+            return; // If true, no need to increase capacity
 
-        AnyType [ ] old = theItems;
-        theItems = (AnyType []) new Object[ newCapacity ];  // Object super class (top level of hierarchy)
-        for( int i = 0; i < size( ); i++ )
+        AnyType [ ] old = theItems; // Stores the current array
+        theItems = (AnyType []) new Object[ newCapacity ];  // Creates a new array with the specified capacity
+        for( int i = 0; i < size( ); i++ ) // Copies elements from the old array to the new array
             theItems[ i ] = old[ i ];
     }
     
@@ -77,7 +79,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public boolean add( AnyType x )     // whether or not add was successful
     {
-    add( size( ), x );
+    add( size( ), x ); // Calls the add method with the current size as the index and the object to add
         return true;            
     }
     
@@ -89,13 +91,13 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
     public void add( int idx, AnyType x )    // adds item at specific place (idx) and value/object (x)
     {
         if( theItems.length == size( ) )       //check capacity (length of array)
-            ensureCapacity( size( ) * 2 + 1 );
+            ensureCapacity( size( ) * 2 + 1 ); // Increases capacity if necessary
 
-        for( int i = theSize; i > idx; i-- )
+        for( int i = theSize; i > idx; i-- ) // Shifts elements to the right to make space for the new element
             theItems[ i ] = theItems[ i - 1 ];
 
-        theItems[ idx ] = x;
-        theSize++;  
+        theItems[ idx ] = x; // Places the new element at the specified index
+        theSize++;          // Increments the size of the list
     }
       
     /**
@@ -105,13 +107,11 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public AnyType remove( int idx )                // memorize this removal
     {
-        AnyType removedItem = theItems[ idx ];
-        
-        for( int i = idx; i < size( ) - 1; i++ )
+        AnyType removedItem = theItems[ idx ]; // Stores the item to be removed
+        for( int i = idx; i < size( ) - 1; i++ ) // Shifts elements to the left to fill the gap
             theItems[ i ] = theItems[ i + 1 ];
-        theSize--;    
-        
-        return removedItem;
+        theSize--;                                // Decrements the size of the list
+        return removedItem;                       // Returns the removed item
     }
     
     /**
@@ -119,13 +119,13 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public void clear( )
     {
-        doClear( );
+        doClear( ); // Calls the doClear method to clear the list
     }
     
     private void doClear( )
     {
-        theSize = 0;
-        ensureCapacity( DEFAULT_CAPACITY );    // can change input here
+        theSize = 0; // Resets the size of the list to 0
+        ensureCapacity( DEFAULT_CAPACITY );    // Sets the capacity to the default capacity
     }
     
     /**
@@ -134,7 +134,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public java.util.Iterator<AnyType> iterator( )       // iterator is a method that returns an iterator object
     {
-        return new ArrayListIterator( );
+        return new ArrayListIterator( ); // Returns a new ArrayListIterator object
     }
 
     /**
@@ -142,13 +142,13 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     public String toString( )
     {
-            StringBuilder sb = new StringBuilder( "[ " );
+            StringBuilder sb = new StringBuilder( "[ " );   //string class is immutable //StringBuilder is a helper function that allocates array of characters
 
-            for( AnyType x : this )
+            for( AnyType x : this ) // Iterates over the list to build the string representation
                 sb.append( x + " " );
             sb.append( "]" );
 
-            return new String( sb );
+            return new String( sb ); // Returns the string representation of the list
     }
     
     /**
@@ -158,12 +158,12 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
      */
     private class ArrayListIterator implements java.util.Iterator<AnyType>   // non-static nested class -- can access the outer class's fields
     {
-        private int current = 0;
-        private boolean okToRemove = false;
+        private int current = 0; // Keeps track of the current position in the list
+        private boolean okToRemove = false; // Flag to check if removal is allowed
         
         public boolean hasNext( )
         {
-            return current < size( );
+            return current < size( ); // Checks if there are more elements to iterate over
         }
         
         
@@ -171,25 +171,23 @@ public class MyArrayList<AnyType> implements Iterable<AnyType>
         {
             if( !hasNext( ) ) 
                 throw new java.util.NoSuchElementException( ); 
-                  
             okToRemove = true;    
-            return theItems[ current++ ];
+            return theItems[ current++ ]; // Returns the next element and increments the current position
         }
         
         public void remove( )
         {
             if( !okToRemove )
                 throw new IllegalStateException( );
-                
-            MyArrayList.this.remove( --current );
+            MyArrayList.this.remove( --current ); // Removes the element at the current position
             okToRemove = false;
         }
     }
     
     private static final int DEFAULT_CAPACITY = 10; // hard coded constant
     
-    private AnyType [ ] theItems;
-    private int theSize;
+    private AnyType [ ] theItems; // Array to store the elements of the list
+    private int theSize; // Size of the list
 }
 
 class TestArrayList
@@ -199,13 +197,13 @@ class TestArrayList
         MyArrayList<Integer> lst = new MyArrayList<>( );
 
         for( int i = 0; i < 10; i++ )
-                lst.add( i );
+                lst.add( i ); // Adds elements to the list
         for( int i = 20; i < 30; i++ )
-                lst.add( 0, i );
+                lst.add( 0, i ); // Adds elements at the beginning of the list
 
-        lst.remove( 0 );
-        lst.remove( lst.size( ) - 1 );
+        lst.remove( 0 ); // Removes the first element
+        lst.remove( lst.size( ) - 1 ); // Removes the last element
 
-        System.out.println( lst );
+        System.out.println( lst ); // Prints the list
     }
 }

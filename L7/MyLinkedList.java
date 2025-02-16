@@ -10,12 +10,12 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public MyLinkedList( )
     {
-        doClear( );
+        doClear( ); // Calls the doClear method to initialize the list
     }
     
     private void clear( )
     {
-        doClear( );
+        doClear( ); // Calls the doClear method to clear the list
     }
     
     /**
@@ -23,12 +23,12 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public void doClear( )
     {
-        beginMarker = new Node<>( null, null, null );
-        endMarker = new Node<>( null, beginMarker, null );
-        beginMarker.next = endMarker;
+        beginMarker = new Node<>( null, null, null ); // Creates a new Node for the beginning marker
+        endMarker = new Node<>( null, beginMarker, null ); // Creates a new Node for the end marker
+        beginMarker.next = endMarker; // Links the beginning marker to the end marker
         
-        theSize = 0;
-        modCount++;
+        theSize = 0; // Resets the size of the list to 0
+        modCount++; // Increments the modification count
     }
     
     /**
@@ -37,12 +37,12 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public int size( )
     {
-        return theSize;
+        return theSize; // Returns the current size of the list
     }
     
     public boolean isEmpty( )
     {
-        return size( ) == 0;
+        return size( ) == 0; // Checks if the list is empty by comparing size to 0
     }
     
     /**
@@ -52,8 +52,8 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public boolean add( AnyType x )
     {
-        add( size( ), x );   
-        return true;         
+        add( size( ), x ); // Calls the add method with the current size as the index and the object to add
+        return true; // Always returns true indicating successful addition
     }
     
     /**
@@ -65,7 +65,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public void add( int idx, AnyType x )
     {
-        addBefore( getNode( idx, 0, size( ) ), x );
+        addBefore( getNode( idx, 0, size( ) ), x ); // Calls the addBefore method to add the object at the specified position
     }
     
     /**
@@ -77,11 +77,11 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */    
     private void addBefore( Node<AnyType> p, AnyType x )
     {
-        Node<AnyType> newNode = new Node<>( x, p.prev, p );
-        newNode.prev.next = newNode;
-        p.prev = newNode;         
-        theSize++;
-        modCount++;
+        Node<AnyType> newNode = new Node<>( x, p.prev, p ); // Creates a new Node with the object to add and links it to the previous and next nodes
+        newNode.prev.next = newNode; // Links the previous node to the new node
+        p.prev = newNode; // Links the new node to the next node
+        theSize++; // Increments the size of the list
+        modCount++; // Increments the modification count
     }   
     
     
@@ -92,7 +92,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public AnyType get( int idx )
     {
-        return getNode( idx ).data;
+        return getNode( idx ).data; // Returns the data of the Node at the specified index
     }
         
     /**
@@ -104,11 +104,10 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public AnyType set( int idx, AnyType newVal )
     {
-        Node<AnyType> p = getNode( idx );
-        AnyType oldVal = p.data;
-        
-        p.data = newVal;   
-        return oldVal;
+        Node<AnyType> p = getNode( idx ); // Gets the Node at the specified index
+        AnyType oldVal = p.data; // Stores the old value
+        p.data = newVal; // Sets the new value
+        return oldVal; // Returns the old value
     }
     
     /**
@@ -119,7 +118,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     private Node<AnyType> getNode( int idx )
     {
-        return getNode( idx, 0, size( ) - 1 );
+        return getNode( idx, 0, size( ) - 1 ); // Calls the overloaded getNode method with the specified index and valid range
     }
 
     /**
@@ -135,22 +134,22 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
         Node<AnyType> p;
         
         if( idx < lower || idx > upper )
-            throw new IndexOutOfBoundsException( "getNode index: " + idx + "; size: " + size( ) );
+            throw new IndexOutOfBoundsException( "getNode index: " + idx + "; size: " + size( ) ); // Throws an exception if the index is out of range
             
         if( idx < size( ) / 2 )
         {
-            p = beginMarker.next;
+            p = beginMarker.next; // Starts from the beginning of the list
             for( int i = 0; i < idx; i++ )
-                p = p.next;            
+                p = p.next; // Iterates to the specified index
         }
         else
         {
-            p = endMarker;
+            p = endMarker; // Starts from the end of the list
             for( int i = size( ); i > idx; i-- )
-                p = p.prev;
+                p = p.prev; // Iterates to the specified index
         } 
         
-        return p;
+        return p; // Returns the Node at the specified index
     }
     
     /**
@@ -160,7 +159,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public AnyType remove( int idx )
     {
-        return remove( getNode( idx ) );
+        return remove( getNode( idx ) ); // Calls the remove method with the Node at the specified index
     }
     
     /**
@@ -170,12 +169,12 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     private AnyType remove( Node<AnyType> p )
     {
-        p.next.prev = p.prev;
-        p.prev.next = p.next;
-        theSize--;
-        modCount++;
+        p.next.prev = p.prev; // Links the next node to the previous node
+        p.prev.next = p.next; // Links the previous node to the next node
+        theSize--; // Decrements the size of the list
+        modCount++; // Increments the modification count
         
-        return p.data;
+        return p.data; // Returns the data of the removed Node
     }
     
     /**
@@ -183,13 +182,13 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public String toString( )
     {
-        StringBuilder sb = new StringBuilder( "[ " );
+        StringBuilder sb = new StringBuilder( "[ " ); // Creates a StringBuilder to build the string representation
 
         for( AnyType x : this )
-            sb.append( x + " " );
-        sb.append( "]" );
+            sb.append( x + " " ); // Iterates through the list and appends each element to the StringBuilder
+        sb.append( "]" ); // Appends the closing bracket
 
-        return new String( sb );
+        return new String( sb ); // Returns the string representation
     }
 
     /**
@@ -198,7 +197,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     public java.util.Iterator<AnyType> iterator( )
     {
-        return new LinkedListIterator( );
+        return new LinkedListIterator( ); // Returns a new LinkedListIterator
     }
 
     /**
@@ -208,38 +207,38 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
      */
     private class LinkedListIterator implements java.util.Iterator<AnyType>
     {
-        private Node<AnyType> current = beginMarker.next;
-        private int expectedModCount = modCount;
-        private boolean okToRemove = false;
+        private Node<AnyType> current = beginMarker.next; // Initializes the current node to the first node in the list
+        private int expectedModCount = modCount; // Stores the expected modification count
+        private boolean okToRemove = false; // Flag to check if removal is allowed
         
         public boolean hasNext( )
         {
-            return current != endMarker;
+            return current != endMarker; // Checks if there are more elements in the list
         }
         
         public AnyType next( )
         {
             if( modCount != expectedModCount )
-                throw new java.util.ConcurrentModificationException( );
+                throw new java.util.ConcurrentModificationException( ); // Throws an exception if the list has been modified
             if( !hasNext( ) )
-                throw new java.util.NoSuchElementException( ); 
-                   
-            AnyType nextItem = current.data;
-            current = current.next;
-            okToRemove = true;
-            return nextItem;
+                throw new java.util.NoSuchElementException( ); // Throws an exception if there are no more elements
+            
+            AnyType nextItem = current.data; // Stores the data of the current node
+            current = current.next; // Moves to the next node
+            okToRemove = true; // Allows removal
+            return nextItem; // Returns the data of the current node
         }
         
         public void remove( )
         {
             if( modCount != expectedModCount )
-                throw new java.util.ConcurrentModificationException( );
+                throw new java.util.ConcurrentModificationException( ); // Throws an exception if the list has been modified
             if( !okToRemove )
-                throw new IllegalStateException( );
+                throw new IllegalStateException( ); // Throws an exception if removal is not allowed
                 
-            MyLinkedList.this.remove( current.prev );
-            expectedModCount++;
-            okToRemove = false;       
+            MyLinkedList.this.remove( current.prev ); // Removes the node before the current node
+            expectedModCount++; // Updates the expected modification count
+            okToRemove = false; // Disallows removal
         }
     }
     
@@ -250,18 +249,18 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType>
     {
         public Node( AnyType d, Node<AnyType> p, Node<AnyType> n )
         {
-            data = d; prev = p; next = n;
+            data = d; prev = p; next = n; // Initializes the node with data and links
         }
         
-        public AnyType data;
-        public Node<AnyType>   prev;
-        public Node<AnyType>   next;
+        public AnyType data; // Data stored in the node
+        public Node<AnyType>   prev; // Link to the previous node
+        public Node<AnyType>   next; // Link to the next node
     }
     
-    private int theSize;
-    private int modCount = 0;
-    private Node<AnyType> beginMarker;
-    private Node<AnyType> endMarker;
+    private int theSize; // Size of the list
+    private int modCount = 0; // Modification count
+    private Node<AnyType> beginMarker; // Marker for the beginning of the list
+    private Node<AnyType> endMarker; // Marker for the end of the list
 }
 
 class TestLinkedList
@@ -271,21 +270,21 @@ class TestLinkedList
         MyLinkedList<Integer> lst = new MyLinkedList<>( );
 
         for( int i = 0; i < 10; i++ )
-                lst.add( i );
+                lst.add( i ); // Adds elements to the list
         for( int i = 20; i < 30; i++ )
-                lst.add( 0, i );
+                lst.add( 0, i ); // Adds elements at the beginning of the list
 
-        lst.remove( 0 );
-        lst.remove( lst.size( ) - 1 );
+        lst.remove( 0 ); // Removes the first element
+        lst.remove( lst.size( ) - 1 ); // Removes the last element
 
-        System.out.println( lst );
+        System.out.println( lst ); // Prints the list
 
-        java.util.Iterator<Integer> itr = lst.iterator( );
+        java.util.Iterator<Integer> itr = lst.iterator( ); // Creates an iterator for the list
         while( itr.hasNext( ) )
         {
-                itr.next( );
-                itr.remove( );
-                System.out.println( lst );
+                itr.next( ); // Moves to the next element
+                itr.remove( ); // Removes the current element
+                System.out.println( lst ); // Prints the list after each removal
         }
     }
 }
