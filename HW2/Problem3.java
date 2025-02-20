@@ -12,7 +12,7 @@ public class Problem3 {
             long startTime = System.nanoTime();
             bigO.cubic(n);
             long endTime = System.nanoTime();
-            System.out.println("cubic method: " + (endTime - startTime) + " nanoseconds");
+            System.out.println("cubic method (n = " + n + "): " + (endTime - startTime) + " nanoseconds");
         }
 
         // exp method
@@ -20,7 +20,7 @@ public class Problem3 {
             long startTime = System.nanoTime();
             bigO.exp(n);
             long endTime = System.nanoTime();
-            System.out.println("exp method: " + (endTime - startTime) + " nanoseconds");
+            System.out.println("exp method (n = " + n + "): " + (endTime - startTime) + " nanoseconds");
         }
 
         // constant method
@@ -28,7 +28,7 @@ public class Problem3 {
             long startTime = System.nanoTime();
             bigO.constant(n);
             long endTime = System.nanoTime();
-            System.out.println("constant method: " + (endTime - startTime) + " nanoseconds");
+            System.out.println("constant method (n = " + n + "): " + (endTime - startTime) + " nanoseconds");
         }
     }
 }

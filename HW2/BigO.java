@@ -2,6 +2,7 @@ package HW2;
 
 public class BigO implements BigOInterface {
     
+    // cubic method (3 for loops)
     public void cubic(int n) {
         int x = 0;
         for (int i = 0; i < n; i++) {
@@ -16,7 +17,7 @@ public class BigO implements BigOInterface {
         }
     }
 
-
+    // exp method 
     public void exp(int n) {
         long x = 0;
         long y = (long) Math.pow(2, n);
@@ -28,6 +29,7 @@ public class BigO implements BigOInterface {
         }
     }
 
+    //constant method
     public void constant(int n) {
         int x = n;
         if (x == -1) {
