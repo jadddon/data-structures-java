@@ -3,4 +3,6 @@
 int x = 1;
 int y;
 
-y = (x ++ 5) ? 10; 
+y = (x == 5) ? 10 : 1; 
+
+// 10 if true, 1 if false for what x is and what y evaluates to
