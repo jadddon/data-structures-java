@@ -22,7 +22,7 @@ public class MyStack<T> implements MyStackInterface<T> {
     private void updateSize(int newSize){
         T[] updatedStack = (T[]) new Object[newSize];
         for (int i=0; i<size; i++){
-            updatedStack[i] = stack[i];
+            updatedStack[i] = stack[i];`
         }
         stack = updatedStack;
     }
