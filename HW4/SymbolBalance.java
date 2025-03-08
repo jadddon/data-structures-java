@@ -36,7 +36,7 @@ public class SymbolBalance implements SymbolBalanceInterface {
             if (!stack.isEmpty()) {
                 char topElement = stack.peek();
                 return new NonEmptyStackError(topElement, stack.size());
-            }
+            } 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
