@@ -40,7 +40,7 @@ public class SymbolBalance implements SymbolBalanceInterface {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
+         
         return null; // Return null if no errors are found
     }
 }
