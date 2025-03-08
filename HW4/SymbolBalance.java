@@ -34,7 +34,7 @@ public class SymbolBalance implements SymbolBalanceInterface {
             
             // Check for any remaining unmatched symbols in the stack
             if (!stack.isEmpty()) {
-                char topElement = stack.peek();
+                char topElement = stack.peek(); 
                 return new NonEmptyStackError(topElement, stack.size());
             } 
         } catch (FileNotFoundException e) {
