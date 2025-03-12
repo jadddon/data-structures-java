@@ -17,22 +17,26 @@ public class TwoStackQueue<T> implements TwoStackQueueInterface<T> {
     
     //look to see if empty 
     public boolean isEmpty() {
+        // Time complexity: O(1)
         return S1.isEmpty() && S2.isEmpty(); //both stacks must be empty
     }
 
     // size of queue  
     public int size() {
+        // Time complexity: O(1)
         // Size is the sum of elements in both stacks
         return S1.size() + S2.size(); // take sum of both  
     }
 
     // add element  
     public void enqueue(T x) {
+        // Time complexity: O(1)
         S1.push(x); // push element to S1
     }
     
     // pop and return element 
     public T dequeue() {
+        // Amortized time complexity: O(1)
         if (S2.isEmpty()) {
             while (!S1.isEmpty()) {    //  elements from S1 to S2 to reverse
                 S2.push(S1.pop());
